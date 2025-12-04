@@ -58,6 +58,12 @@ export interface WellnessScore {
 
 const generateId = () => Math.random().toString(36).substr(2, 9);
 
+const getTodayDateString = () => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return today.toISOString().split('T')[0];
+};
+
 export const storage = {
   // Food Logs
   getFoodLogs: (): FoodLog[] => {

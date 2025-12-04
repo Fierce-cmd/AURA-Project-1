@@ -19,12 +19,15 @@ export function FoodTracking() {
     loadFoodLogs();
   }, []);
 
+  const getTodayDateString = () => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return today.toISOString().split('T')[0];
+  };
+
   const loadFoodLogs = () => {
     try {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      const todayDate = today.toISOString().split('T')[0];
-
+      const todayDate = getTodayDateString();
       const allLogs = storage.getFoodLogs();
       const todayLogs = allLogs.filter(log => log.logged_at.startsWith(todayDate));
       setFoodLogs(todayLogs.reverse());
@@ -38,7 +41,13 @@ export function FoodTracking() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!formData.food_name.trim() || !formData.calories) {
+      alert('Please fill in food name and calories');
+      return;
+    }
+
     try {
+      const todayDate = getTodayDateString();
       const now = new Date();
       storage.addFoodLog({
         food_name: formData.food_name,
@@ -47,7 +56,7 @@ export function FoodTracking() {
         carbs: parseFloat(formData.carbs) || 0,
         fats: parseFloat(formData.fats) || 0,
         meal_type: formData.meal_type,
-        logged_at: now.toISOString(),
+        logged_at: `${todayDate}T${now.toLocaleTimeString()}`,
         created_at: now.toISOString(),
       });
 
@@ -63,6 +72,7 @@ export function FoodTracking() {
       loadFoodLogs();
     } catch (error) {
       console.error('Error adding food log:', error);
+      alert('Failed to add food. Please try again.');
     }
   };
 

@@ -12,12 +12,15 @@ export function WaterTracking() {
     loadWaterData();
   }, []);
 
+  const getTodayDateString = () => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return today.toISOString().split('T')[0];
+  };
+
   const loadWaterData = () => {
     try {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      const todayDate = today.toISOString().split('T')[0];
-
+      const todayDate = getTodayDateString();
       const allLogs = storage.getWaterLogs();
       const todayLogs = allLogs.filter(log => log.logged_at.startsWith(todayDate));
       setWaterLogs(todayLogs.reverse());
@@ -32,16 +35,23 @@ export function WaterTracking() {
   };
 
   const addWater = (amount: number) => {
+    if (amount <= 0) {
+      alert('Please enter a valid amount');
+      return;
+    }
+
     try {
+      const todayDate = getTodayDateString();
       const now = new Date();
       storage.addWaterLog({
         amount_ml: amount,
-        logged_at: now.toISOString(),
+        logged_at: `${todayDate}T${now.toLocaleTimeString()}`,
         created_at: now.toISOString(),
       });
       loadWaterData();
     } catch (error) {
       console.error('Error adding water:', error);
+      alert('Failed to add water. Please try again.');
     }
   };
 
