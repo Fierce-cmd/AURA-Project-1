@@ -1,4 +1,5 @@
 import { Activity, Home, Apple, Heart, Droplet } from 'lucide-react';
+import { ProfileMenu } from './ProfileMenu';
 
 interface SidebarProps {
   activeView: 'dashboard' | 'food' | 'health' | 'water';
@@ -49,10 +50,7 @@ export function Sidebar({ activeView, onNavigate }: SidebarProps) {
         })}
       </nav>
 
-      <div className="p-4 border-t border-white/20 text-center text-sm text-white/80">
-        <p>Your local health companion</p>
-        <p className="text-xs mt-1">All data saved locally</p>
-      </div>
+      <ProfileMenu />
     </div>
   );
 }

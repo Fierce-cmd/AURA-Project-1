@@ -4,6 +4,7 @@ const STORAGE_KEYS = {
   HEALTH_METRICS: 'aura_health_metrics',
   DAILY_GOALS: 'aura_daily_goals',
   WELLNESS_SCORES: 'aura_wellness_scores',
+  PROFILE: 'aura_profile',
 };
 
 export interface FoodLog {
@@ -54,6 +55,18 @@ export interface WellnessScore {
   fitness_score: number;
   sleep_score: number;
   calculated_at: string;
+}
+
+export interface UserProfile {
+  id: string;
+  name: string;
+  age: number | null;
+  gender: string | null;
+  height_cm: number | null;
+  weight_kg: number | null;
+  email: string | null;
+  created_at: string;
+  updated_at: string;
 }
 
 const generateId = () => Math.random().toString(36).substr(2, 9);
@@ -191,6 +204,47 @@ export const storage = {
     scores.push(newScore);
     localStorage.setItem(STORAGE_KEYS.WELLNESS_SCORES, JSON.stringify(scores));
     return newScore;
+  },
+
+  // Profile Management
+  getProfile: (): UserProfile => {
+    try {
+      const data = localStorage.getItem(STORAGE_KEYS.PROFILE);
+      return data ? JSON.parse(data) : {
+        id: generateId(),
+        name: 'User',
+        age: null,
+        gender: null,
+        height_cm: null,
+        weight_kg: null,
+        email: null,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      };
+    } catch {
+      return {
+        id: generateId(),
+        name: 'User',
+        age: null,
+        gender: null,
+        height_cm: null,
+        weight_kg: null,
+        email: null,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      };
+    }
+  },
+
+  updateProfile: (profile: Partial<UserProfile>) => {
+    const currentProfile = storage.getProfile();
+    const updatedProfile: UserProfile = {
+      ...currentProfile,
+      ...profile,
+      updated_at: new Date().toISOString(),
+    };
+    localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(updatedProfile));
+    return updatedProfile;
   },
 
   calculateWellnessScore: (todayCalories: number, calorieGoal: number, todayWater: number, waterGoal: number, todaySteps: number, stepsGoal: number, sleepHours: number, sleepGoal: number): number => {
