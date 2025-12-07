@@ -60,7 +60,7 @@ export function ProfileEditModal({ isOpen, profile, onClose, onSave }: ProfileEd
               type="text"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-gray-900"
               required
             />
           </div>
@@ -72,7 +72,7 @@ export function ProfileEditModal({ isOpen, profile, onClose, onSave }: ProfileEd
                 type="number"
                 value={formData.age || ''}
                 onChange={(e) => setFormData({ ...formData, age: e.target.value ? parseInt(e.target.value) : null })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-gray-900"
                 min="1"
                 max="150"
               />
@@ -82,7 +82,7 @@ export function ProfileEditModal({ isOpen, profile, onClose, onSave }: ProfileEd
               <select
                 value={formData.gender || ''}
                 onChange={(e) => setFormData({ ...formData, gender: e.target.value || null })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-gray-900"
               >
                 <option value="">Select</option>
                 <option value="male">Male</option>
@@ -100,7 +100,7 @@ export function ProfileEditModal({ isOpen, profile, onClose, onSave }: ProfileEd
                 step="0.1"
                 value={formData.height_cm || ''}
                 onChange={(e) => setFormData({ ...formData, height_cm: e.target.value ? parseFloat(e.target.value) : null })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-gray-900"
                 min="50"
                 max="300"
               />
@@ -112,7 +112,7 @@ export function ProfileEditModal({ isOpen, profile, onClose, onSave }: ProfileEd
                 step="0.1"
                 value={formData.weight_kg || ''}
                 onChange={(e) => setFormData({ ...formData, weight_kg: e.target.value ? parseFloat(e.target.value) : null })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-gray-900"
                 min="20"
                 max="300"
               />
@@ -125,7 +125,7 @@ export function ProfileEditModal({ isOpen, profile, onClose, onSave }: ProfileEd
               type="email"
               value={formData.email || ''}
               onChange={(e) => setFormData({ ...formData, email: e.target.value || null })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-gray-900"
             />
           </div>
 
